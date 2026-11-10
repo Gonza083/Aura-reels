@@ -238,7 +238,15 @@ Validar con pydantic antes del render. Los tiempos de `subtitulos` y `zooms` son
 
 ---
 
-## 8. Fuera de alcance (por ahora)
+## 8. Otras herramientas de la serie "Architect" (evaluadas 2026-11-10)
+
+| Herramienta | Veredicto | Por qué |
+|---|---|---|
+| **Video Editor Architect** | ✅ Usar (Fase 1) | Es el núcleo de lo que queremos. Windows 10/11 OK, Node 24+, ~5 GB libres (el modelo de voz ocupa ~3 GB) |
+| **Motion Architect** ([repo](https://github.com/Hainrixz/motion-architect)) | ❌ No por ahora | **Solo Mac/Linux** (no Windows; quizás WSL2). Sirve para intros/logos animados y contadores. A futuro, como algo puntual: animar una vez el isotipo para el cierre. Si Video Editor Architect sugiere instalarlo como habilidad, no hacerlo |
+| **Creative Architect** ([repo](https://github.com/Hainrixz/creative-architect)) | ❌ No para los reels de obra | Genera fotos/videos con IA (Higgsfield, Magnific, OpenAI, con créditos pagos). Choca con la regla de autenticidad de ESTILO.md. Puede servir más adelante para **Pixel Maker / Optilab** (fotos de producto), no acá |
+
+## 9. Fuera de alcance (por ahora)
 - Publicar automáticamente en Instagram.
 - Generar imágenes/video con IA (Higgsfield, etc.). Ver regla de autenticidad en ESTILO.md.
 - Edición multicámara o videos largos de YouTube.
