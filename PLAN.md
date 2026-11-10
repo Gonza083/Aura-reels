@@ -5,6 +5,51 @@
 
 ---
 
+## ★ FASE 1 (EMPEZAR ACÁ) — Probar Video Editor Architect antes de construir
+
+> Decisión de Gonzalo, 2026-11-10: **antes de construir desde cero, probar [Video Editor Architect](https://github.com/Hainrixz/video-editor-architect)** (MIT, de @soyenriquerocha) y entrenarlo con el estilo de Aura. Usa las mismas piezas que este plan (Claude dirige, whisper.cpp transcribe, Remotion renderiza), funciona en Windows y en español, entrena estilos a partir de creadores de referencia y aprende de las correcciones (`/ajustar`).
+> **Las secciones 1–7 de este plan pasan a ser el Plan B** (construir propio) si la Fase 1 no convence. ESTILO.md, marca/, contexto/, obras/ y la parte de Drive (§2b) valen para los dos caminos.
+
+### Pasos
+
+1. **Setup** (ver también §0): Node.js **24+**, Git, Claude Code actualizado, Google Drive para escritorio.
+2. **Clonar al lado de este repo** (no adentro):
+   ```
+   cd ..
+   git clone https://github.com/Hainrixz/video-editor-architect.git aura-editor
+   cd aura-editor
+   npm ci
+   npm run instalar            # muestra qué falta
+   npm run instalar -- --si    # lo instala (ffmpeg, whisper.cpp, uv/Python, yt-dlp, Chromium, fuentes)
+   npx tsx herramientas/doctor.ts
+   claude
+   ```
+   Luego `/empezar`. Idioma: español. Nombre: Gonzalo.
+3. **Entrenar el estilo "aura-obra"** con `/entrenar-estilo` usando como referencia:
+   - **@nettcontrol** → formato base (hablando en obra, subtítulo mayúsculas con palabra clave resaltada).
+   - **@smarthome.ar** → sobriedad y tipografía fina (sobre todo para el estilo "aura-terminado").
+   - NO usar @normotica para el look (solo sirve para ideas de ganchos).
+4. **Ajustar el perfil a la marca** antes de aprobarlo. Pasarle a Claude `../Aura-reels/ESTILO.md` y `../Aura-reels/marca/` y pedir que el perfil respete:
+   - Tipografía **Manrope**; subtítulos blancos; **un solo acento: tan `#C6AC8F`**; fondos de placa `#0A0908`.
+   - **Sin stickers, memes ni efectos de sonido** (o casi ninguno); sin colores saturados; zooms solo de énfasis.
+   - Cierre con isotipo (`../Aura-reels/marca/logos/isotipo-dorado.png`) + CTA. Cargar el logo con `/stickers`.
+   - Todo lo de "Lo que NO queremos" de ESTILO.md va a la sección "lo que nunca va" del perfil.
+5. **Primer reel de prueba:** copiar un video de `G:/Mi unidad/Reels/entrada` a la carpeta de crudos del editor y pedir `/editar`. Iterar con `/ajustar` hasta que Gonzalo diga que le gusta.
+6. **Opcionales que cuestan plata** (Apify, Gemini): **decir que no** salvo que Gonzalo lo pida explícitamente.
+7. **Anotar todo** en `../Aura-reels/NOTAS-EJECUCION.md`: qué funcionó, qué no, ajustes hechos al perfil.
+
+### Cómo decidir (al final de la noche)
+| Resultado | Siguiente paso |
+|---|---|
+| El reel le gusta o está cerca | Seguir con Video Editor Architect. Guardar el editor con sus estilos en un **repo privado** propio (ej. `Gonza083/aura-editor`) y sumar el flujo de Drive (§2b) |
+| Le gusta el motor pero no se logra el look | Ajustar el perfil / plantillas de Remotion del editor |
+| No convence | Pasar al Plan B (secciones 1–7) reutilizando lo aprendido |
+
+### Licencia de Remotion
+Remotion es gratis para empresas de **hasta 3 personas**. Aura tiene 2 socios fijos (el resto son subcontratados), así que probablemente aplique la versión gratuita. **Confirmar en https://www.remotion.dev/docs/license/faq antes del uso regular.** Si no aplicara: licencia de empresa (mín. US$ 100/mes) o pasar el render a ffmpeg.
+
+---
+
 ## 0. Antes de empezar (en la PC de escritorio)
 
 1. **Revisar el intento anterior.** En esa PC ya se trabajó con DaVinci Resolve. Buscar la carpeta/scripts y anotar en `NOTAS-EJECUCION.md`:

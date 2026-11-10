@@ -5,7 +5,7 @@ Dueño: **Gonzalo Díaz**, Chajarí, Entre Ríos. Todo en **español rioplatense
 
 ## Leer primero, en este orden
 1. `ESTILO.md` — qué es un reel "Aura". Manda sobre cualquier decisión estética.
-2. `PLAN.md` — arquitectura, flujo, hitos. Si el sistema todavía no está construido, **ejecutar el plan hito por hito**, mostrando resultados a Gonzalo en cada uno.
+2. `PLAN.md` — **empezar por la "FASE 1": probar y entrenar Video Editor Architect** con el estilo de Aura. Solo si no convence, construir propio (Plan B, secciones 1–7), hito por hito, mostrando resultados a Gonzalo en cada uno.
 3. `NOTAS-EJECUCION.md` (si existe) — avances y decisiones tomadas durante la construcción.
 
 ## Contexto disponible

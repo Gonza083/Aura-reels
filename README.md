@@ -20,4 +20,4 @@ git clone https://github.com/Gonza083/Aura-reels.git
 cd Aura-reels
 claude
 ```
-4. Decirle a Claude: *"Leé CLAUDE.md y PLAN.md y arrancá con el hito H1."*
+4. Decirle a Claude: *"Leé CLAUDE.md y PLAN.md y arrancá con la Fase 1."*
