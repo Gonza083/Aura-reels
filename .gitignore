@@ -24,3 +24,6 @@ render/.remotion/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Rutas locales de cada PC
+config.json

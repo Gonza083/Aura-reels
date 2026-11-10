@@ -27,5 +27,8 @@ Ante "procesá el video" / "procesá los videos de entrada":
 3. Mostrar el resumen corto y esperar el "dale" (salvo que pida `--auto`).
 4. Renderizar y entregar reel + portada + copy en `salida/`.
 
+## Videos: vienen de Google Drive
+Las carpetas de entrada y salida reales están en Google Drive (montado con Drive para escritorio), definidas en `config.json`. Copiar siempre a `trabajo/` local antes de procesar y **nunca borrar originales de Drive**. Detalle en PLAN.md § 2b.
+
 ## Git
-Videos (`entrada/`, `salida/`, `trabajo/`) y `node_modules/`, `.venv/` no se suben. Repo privado.
+Videos (`entrada/`, `salida/`, `trabajo/`), `config.json`, `node_modules/` y `.venv/` no se suben. Repo privado.

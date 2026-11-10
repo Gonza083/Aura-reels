@@ -14,6 +14,7 @@
    - `git`, **Node.js 20+**, **Python 3.11+**, **ffmpeg** (con ffprobe) en el PATH.
    - Placa de video: `nvidia-smi`. Si hay NVIDIA → Whisper en GPU (CUDA). Si no → CPU con modelo `medium`.
 3. Crear `.venv` de Python e instalar dependencias (ver sección 3).
+4. **Google Drive para escritorio** instalado y con sesión iniciada (ver sección 2b). Anotar la letra de unidad (ej. `G:\`) en `config.json`.
 
 ---
 
@@ -61,8 +62,43 @@ entrada/2026-11-12_obra-js.mp4
                       salida/2026-11-12_obra-js_copy.txt  (texto para la publicación + hashtags)
 ```
 
-**Comando objetivo:** `python reel.py entrada/video.mp4 [--tipo obra|terminado] [--auto]`
-y en Claude Code simplemente: *"procesá los videos de entrada"*.
+**Comando objetivo:** `python reel.py [video] [--tipo obra|terminado] [--auto]`
+(sin `video` procesa todo lo nuevo de la carpeta de entrada) y en Claude Code simplemente: *"procesá los videos de entrada"*.
+
+---
+
+## 2b. Videos desde Google Drive
+
+Los videos de Gonzalo están en Google Drive. **No se descargan a mano ni se suben a git**: se usa **Google Drive para escritorio**, que monta el Drive como una unidad (ej. `G:\Mi unidad\`).
+
+```
+📱 Graba en obra → sube a Drive/Reels/entrada (desde el celular)
+💻 PC escritorio ve  G:\Mi unidad\Reels\entrada
+     → reel.py COPIA el video a trabajo/<id>/ (disco local, rápido) y procesa ahí
+     → deja el resultado en G:\Mi unidad\Reels\salida
+📱 El reel aparece en el Drive del celular → lo sube a Instagram
+```
+
+**`config.json`** (en la raíz, NO va a git porque cambia en cada PC; versionar `config.example.json`):
+```json
+{
+  "carpeta_entrada": "G:/Mi unidad/Reels/entrada",
+  "carpeta_salida":  "G:/Mi unidad/Reels/salida",
+  "carpeta_trabajo": "trabajo",
+  "mover_procesados_a": "G:/Mi unidad/Reels/entrada/procesados"
+}
+```
+Si no existe `config.json`, usar las carpetas locales `entrada/` y `salida/` del proyecto (sirve para pruebas).
+
+**Reglas:**
+- **Nunca procesar directo sobre el archivo de Drive**: primero copiar a `trabajo/` (local). Evita lentitud y archivos a medio sincronizar.
+- Antes de copiar, esperar a que el archivo esté completo (tamaño estable durante unos segundos) por si todavía se está subiendo.
+- **Nunca borrar originales de Drive.** Al terminar, mover el original a `entrada/procesados/` (o registrar en `trabajo/procesados.json`) para no procesarlo dos veces.
+- Videos de celular en 4K pueden pesar varios GB: mostrar progreso de la copia.
+- Limpiar `trabajo/<id>/` después de entregar (dejar solo `plan.json` y `transcripcion.json` por si hay que re-renderizar).
+- Los reels finales pesan poco (20–50 MB): van a Drive sin problema.
+
+**Videos viejos:** Gonzalo tiene muchos videos ya en Drive. Se pueden mover de a poco a `Reels/entrada` para procesarlos; no hace falta procesar todo de una.
 
 ---
 
@@ -71,6 +107,7 @@ y en Claude Code simplemente: *"procesá los videos de entrada"*.
 ```
 aura-reels/
 ├── CLAUDE.md, PLAN.md, ESTILO.md     ← documentación (ya existe)
+├── config.example.json               ← rutas de ejemplo (config.json real no va a git)
 ├── marca/ contexto/ obras/ referencias/ ← info de Aura (ya existe)
 ├── entrada/   salida/   trabajo/      ← NO van a git (videos)
 ├── musica/                            ← pistas libres de derechos + musica.json (tags: mood, bpm)
@@ -126,7 +163,7 @@ Validar con pydantic antes del render. Los tiempos de `subtitulos` y `zooms` son
 | **H2** | Audio + transcripción | Un video real sale con voz limpia y `transcripcion.json` con tiempos por palabra correctos |
 | **H3** | **Plantilla visual en Remotion (lo más importante)** | Render de 10 s con subtítulos, gancho, eyebrow y cierre. **Gonzalo aprueba el look** comparando con @nettcontrol / @smarthome.ar. Iterar acá hasta que le guste: tamaños, tipografía, animación, posición |
 | **H4** | Plan de edición por Claude | Con un video real, Claude genera `plan.json` + resumen razonable (buen gancho, cortes correctos) |
-| **H5** | Punta a punta | `python reel.py entrada/x.mp4` → reel completo en `salida/` |
+| **H5** | Punta a punta + Drive | Video subido a `Drive/Reels/entrada` → reel completo en `Drive/Reels/salida` |
 | **H6** | Plantilla Terminado + música | Segundo formato funcionando; biblioteca de 6–10 pistas con tags |
 | **H7** | Ajuste fino | 3 reels reales procesados, ajustes de estilo anotados en ESTILO.md |
 
