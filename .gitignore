@@ -1,0 +1,26 @@
+# Videos y archivos de trabajo (pesados, no van a git)
+entrada/*
+salida/*
+trabajo/
+!entrada/.gitkeep
+!salida/.gitkeep
+
+# Música: solo el índice; las pistas se copian aparte
+musica/*.mp3
+musica/*.wav
+musica/*.m4a
+
+# Dependencias
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# Remotion
+render/out/
+render/.remotion/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
