@@ -1,0 +1,250 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s5-wrap {
+      position: absolute;
+      inset: 0;
+    }
+    #s5-glow {
+      position: absolute;
+      left: -60px;
+      top: 130px;
+      width: 1200px;
+      height: 1100px;
+      background: radial-gradient(ellipse at 50% 50%, rgba(198, 172, 143, 0.2) 0%, rgba(198, 172, 143, 0.06) 38%, rgba(198, 172, 143, 0) 66%);
+    }
+    #s5-plane {
+      position: absolute;
+      left: 40px;
+      top: 270px;
+      width: 1000px;
+      height: 780px;
+    }
+    #s5-grid {
+      position: absolute;
+      left: -400px;
+      top: -400px;
+      width: 1800px;
+      height: 1580px;
+      background-image:
+        linear-gradient(to right, rgba(198, 172, 143, 0.13) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(198, 172, 143, 0.13) 1px, transparent 1px);
+      background-size: 100px 100px;
+      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 0%, transparent 62%);
+      mask-image: radial-gradient(ellipse at 50% 50%, #000 0%, transparent 62%);
+    }
+    #s5-svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1000px;
+      height: 780px;
+      overflow: visible;
+    }
+    #s5-svg .wall {
+      fill: none;
+      stroke: #eae0d5;
+      stroke-width: 3.2;
+      stroke-linecap: square;
+      stroke-dasharray: 1;
+    }
+    #s5-svg .room {
+      fill: rgba(198, 172, 143, 0.17);
+    }
+    #s5-svg .cable {
+      fill: none;
+      stroke: #c6ac8f;
+      stroke-width: 2.4;
+      stroke-dasharray: 1;
+    }
+    #s5-svg .pulse {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 0.12 1;
+    }
+    #s5-svg .node {
+      fill: #c6ac8f;
+    }
+    #s5-svg .halo {
+      fill: none;
+      stroke: #c6ac8f;
+      stroke-width: 2;
+    }
+    #s5-svg .cover {
+      fill: url(#s5-cov);
+    }
+    #s5-svg #s5-rack {
+      fill: #fff;
+    }
+    #s5-ring {
+      position: absolute;
+      left: 490px;
+      top: 630px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #c6ac8f;
+    }
+    #s5-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 38%, #fff 0%, #eae0d5 30%, #c6ac8f 75%);
+      z-index: 9;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s5" data-width="1080" data-height="1920">
+    <div id="s5-wrap">
+      <div id="s5-glow" data-layout-ignore></div>
+
+      <div id="s5-plane" data-layout-allow-overflow data-layout-ignore>
+        <div id="s5-grid"></div>
+        <svg id="s5-svg" viewBox="0 0 1000 780">
+          <defs>
+            <radialGradient id="s5-cov">
+              <stop offset="0" stop-color="#C6AC8F" stop-opacity="0.34" />
+              <stop offset="0.6" stop-color="#C6AC8F" stop-opacity="0.1" />
+              <stop offset="1" stop-color="#C6AC8F" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- cobertura -->
+          <circle class="cover" id="s5-cv1" cx="230" cy="230" r="330" />
+          <circle class="cover" id="s5-cv2" cx="780" cy="590" r="330" />
+          <circle class="cover" id="s5-cv3" cx="520" cy="360" r="420" />
+
+          <!-- ambientes -->
+          <rect class="room" id="s5-r1" x="50" y="50" width="350" height="390" />
+          <rect class="room" id="s5-r2" x="400" y="50" width="280" height="230" />
+          <rect class="room" id="s5-r3" x="680" y="50" width="270" height="230" />
+          <rect class="room" id="s5-r4" x="50" y="440" width="560" height="290" />
+          <rect class="room" id="s5-r5" x="610" y="440" width="340" height="290" />
+
+          <!-- muros (con vanos) -->
+          <path class="wall" pathLength="1" d="M50 50 H950 V730 H50 Z" />
+          <path class="wall" pathLength="1" d="M400 50 V180 M400 250 V440" />
+          <path class="wall" pathLength="1" d="M680 50 V280" />
+          <path class="wall" pathLength="1" d="M400 280 H480 M560 280 H780 M860 280 H950" />
+          <path class="wall" pathLength="1" d="M50 440 H180 M260 440 H610" />
+          <path class="wall" pathLength="1" d="M610 440 V540 M610 620 V730" />
+          <path class="wall" pathLength="1" d="M610 440 H720 M800 440 H950" />
+
+          <!-- tendido desde el rack -->
+          <path class="cable" id="s5-k1" pathLength="1" d="M520 360 H230 V230" />
+          <path class="cable" id="s5-k2" pathLength="1" d="M520 360 V160" />
+          <path class="cable" id="s5-k3" pathLength="1" d="M520 360 H820 V160" />
+          <path class="cable" id="s5-k4" pathLength="1" d="M520 360 H330 V590" />
+          <path class="cable" id="s5-k5" pathLength="1" d="M520 360 H780 V590" />
+          <path class="pulse" id="s5-q1" pathLength="1" d="M520 360 H230 V230" />
+          <path class="pulse" id="s5-q2" pathLength="1" d="M520 360 V160" />
+          <path class="pulse" id="s5-q3" pathLength="1" d="M520 360 H820 V160" />
+          <path class="pulse" id="s5-q4" pathLength="1" d="M520 360 H330 V590" />
+          <path class="pulse" id="s5-q5" pathLength="1" d="M520 360 H780 V590" />
+
+          <!-- dispositivos -->
+          <g id="s5-n1"><circle class="halo" cx="230" cy="230" r="22" /><circle class="node" cx="230" cy="230" r="9" /></g>
+          <g id="s5-n2"><circle class="halo" cx="520" cy="160" r="22" /><circle class="node" cx="520" cy="160" r="9" /></g>
+          <g id="s5-n3"><circle class="halo" cx="820" cy="160" r="22" /><circle class="node" cx="820" cy="160" r="9" /></g>
+          <g id="s5-n4"><circle class="halo" cx="330" cy="590" r="22" /><circle class="node" cx="330" cy="590" r="9" /></g>
+          <g id="s5-n5"><circle class="halo" cx="780" cy="590" r="22" /><circle class="node" cx="780" cy="590" r="9" /></g>
+          <circle id="s5-rack" cx="520" cy="360" r="12" />
+        </svg>
+      </div>
+
+      <div id="s5-ring" data-layout-ignore></div>
+
+      <div class="ah-hud" id="s5-hud">
+        <div class="ah-mono">Red · Cobertura total</div>
+        <div class="ah-num"><span id="s5-n">0</span>%</div>
+        <div class="ah-track"><i id="s5-bar"></i></div>
+      </div>
+
+      <div class="ah-text" id="s5-text">
+        <div class="ah-hl" style="font-size: 84px">
+          <span class="w">Conectividad</span><br />
+          <span class="w">diseñada </span><span class="w">para </span><span class="w">que</span><br />
+          <span class="w">todo </span><span class="w ah-acc">funcione.</span>
+        </div>
+      </div>
+
+      <div id="s5-flash" data-layout-ignore></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      // Entrada: el anillo de la cerradura se cierra sobre el corazón de la red.
+      tl.fromTo("#s5-ring", { scale: 30, opacity: 1 }, { scale: 0.3, opacity: 1, duration: 0.55, ease: "power3.out" }, 0);
+      tl.fromTo("#s5-ring", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "none", immediateRender: false }, 0.55);
+      tl.fromTo("#s5-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 2.4, ease: "power2.out" }, 0.3);
+
+      // El plano de la casa, en perspectiva, gira lentamente.
+      gsap.set("#s5-plane", { transformPerspective: 2200, transformOrigin: "52% 46%" });
+      tl.fromTo(
+        "#s5-plane",
+        { rotationX: 57, rotationZ: -36, scale: 0.74 },
+        { rotationX: 55, rotationZ: -20, scale: 0.82, duration: 4.8, ease: "none" },
+        0,
+      );
+      tl.fromTo("#s5-grid", { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0.2);
+
+      tl.fromTo("#s5-rack", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.45, ease: "back.out(2)" }, 0.3);
+      tl.fromTo(
+        "#s5-svg .wall",
+        { strokeDashoffset: 1, opacity: 0 },
+        { strokeDashoffset: 0, opacity: 0.9, duration: 0.85, ease: "power2.out", stagger: 0.06 },
+        0.12,
+      );
+
+      // Tendido, pulsos y dispositivos que se van sumando a la red.
+      const rooms = ["#s5-r1", "#s5-r2", "#s5-r3", "#s5-r4", "#s5-r5"];
+      [1, 2, 3, 4, 5].forEach((i, k) => {
+        const t = 1.2 + k * 0.22;
+        tl.fromTo("#s5-k" + i, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, t);
+        tl.fromTo("#s5-q" + i, { strokeDashoffset: 0.12, opacity: 0 }, { strokeDashoffset: -1, opacity: 1, duration: 0.7, ease: "power2.inOut" }, t);
+        tl.fromTo("#s5-q" + i, { strokeDashoffset: 0.12 }, { strokeDashoffset: -1, duration: 0.8, ease: "power1.inOut", immediateRender: false }, t + 1.5);
+        tl.fromTo("#s5-n" + i, { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, t + 0.55);
+        tl.fromTo(rooms[k], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, t + 0.6);
+      });
+      tl.fromTo(
+        "#s5-svg .cover",
+        { scale: 0.2, opacity: 0, transformOrigin: "50% 50%" },
+        { scale: 1, opacity: 1, duration: 1.3, ease: "power2.out", stagger: 0.25 },
+        2.2,
+      );
+
+      // HUD.
+      tl.fromTo("#s5-hud > *", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power3.out", stagger: 0.06 }, 0.6);
+      const el = document.getElementById("s5-n");
+      const o = { v: 0 };
+      tl.fromTo(o, { v: 0 }, { v: 100, duration: 2.0, ease: "power2.inOut", onUpdate: () => (el.textContent = Math.round(o.v)) }, 1.2);
+      tl.fromTo("#s5-bar", { scaleX: 0 }, { scaleX: 1, duration: 2.0, ease: "power2.inOut" }, 1.2);
+
+      // Titular.
+      tl.fromTo(
+        "#s5-text .w",
+        { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out", stagger: 0.09 },
+        1.0,
+      );
+
+      // La subida musical termina en un destello que abre el clímax.
+      tl.fromTo("#s5-flash", { opacity: 0 }, { opacity: 0.92, duration: 0.4, ease: "power3.in" }, 4.4);
+
+      window.__timelines["s5"] = tl;
+    })();
+  </script>
+</template>

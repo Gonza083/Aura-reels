@@ -1,0 +1,164 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s3-wrap {
+      position: absolute;
+      inset: 0;
+    }
+    .s3-shot {
+      position: absolute;
+      inset: 0;
+    }
+    .s3-shot .ah-cam,
+    .s3-shot .ah-cam img {
+      width: 1995px;
+      height: 1330px;
+    }
+    #s3-dim {
+      position: absolute;
+      inset: 0;
+      background: #0a0908;
+    }
+    #s3-b-lit {
+      --p: -20%;
+      -webkit-mask-image: linear-gradient(to top, #000 var(--p), transparent calc(var(--p) + 20%));
+      mask-image: linear-gradient(to top, #000 var(--p), transparent calc(var(--p) + 20%));
+    }
+    #s3-dip {
+      position: absolute;
+      inset: 0;
+      background: #0a0908;
+      z-index: 9;
+    }
+    #s3-text {
+      z-index: 5;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s3" data-width="1080" data-height="1920">
+    <div id="s3-wrap">
+      <!-- A · Iluminación -->
+      <div id="s3-a" class="clip s3-shot" data-start="0" data-duration="1.8" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s3-a-cam" class="ah-cam" data-layout-ignore>
+            <img src="assets/img/ilum.jpg" alt="" />
+          </div>
+          <div id="s3-dim" data-layout-ignore></div>
+          <div class="ah-topfade"></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-hud" id="s3-a-hud">
+          <div class="ah-mono">Iluminación · Living</div>
+          <div class="ah-num"><span id="s3-a-n">0</span>%</div>
+          <div class="ah-track"><i id="s3-a-bar"></i></div>
+        </div>
+      </div>
+
+      <!-- B · Cortinas -->
+      <div id="s3-b" class="clip s3-shot" data-start="1.8" data-duration="1.8" data-track-index="2">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s3-b-cam" class="ah-cam" data-layout-ignore>
+            <img src="assets/img/pers_dark.jpg" alt="" />
+            <img id="s3-b-lit" src="assets/img/pers_lit.jpg" alt="" />
+          </div>
+          <div class="ah-topfade"></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-hud" id="s3-b-hud">
+          <div class="ah-mono">Cortinas · Cocina</div>
+          <div class="ah-num"><span id="s3-b-n">0</span>%</div>
+          <div class="ah-track"><i id="s3-b-bar"></i></div>
+        </div>
+      </div>
+
+      <!-- C · Clima -->
+      <div id="s3-c" class="clip s3-shot" data-start="3.6" data-duration="1.2" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s3-c-cam" class="ah-cam" data-layout-ignore>
+            <img src="assets/img/clim.jpg" alt="" />
+          </div>
+          <div class="ah-topfade"></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-hud" id="s3-c-hud">
+          <div class="ah-mono">Clima · Suite</div>
+          <div class="ah-num"><span id="s3-c-n">26</span>°</div>
+          <div class="ah-track"><i id="s3-c-bar"></i></div>
+        </div>
+      </div>
+
+      <div class="ah-text" id="s3-text">
+        <div class="ah-hl">
+          <span class="w">Domótica</span><br /><span class="w ah-acc">inteligente.</span>
+        </div>
+        <div class="ah-lede" id="s3-lede">
+          <span class="w">Una </span><span class="w">experiencia</span><br /><span class="w">completamente </span><span class="w">integrada.</span>
+        </div>
+      </div>
+
+      <div id="s3-dip" data-layout-ignore></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const count = (id, from, to, t, d) => {
+        const el = document.getElementById(id);
+        const o = { v: from };
+        tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => (el.textContent = Math.round(o.v)) }, t);
+      };
+      const hud = (sel, t) =>
+        tl.fromTo(sel + " > *", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power3.out", stagger: 0.06 }, t);
+
+      // A · llega del barrido de la escena anterior y la luz sube con el dimmer.
+      tl.fromTo("#s3-a-cam", { x: -330 }, { x: -735, duration: 0.6, ease: "power3.out" }, 0);
+      tl.fromTo("#s3-a-cam", { x: -735 }, { x: -800, duration: 1.2, ease: "none", immediateRender: false }, 0.6);
+      tl.fromTo("#s3-dim", { opacity: 0.72 }, { opacity: 0, duration: 1.1, ease: "power2.out" }, 0.25);
+      hud("#s3-a-hud", 0.12);
+      count("s3-a-n", 0, 80, 0.25, 1.1);
+      tl.fromTo("#s3-a-bar", { scaleX: 0 }, { scaleX: 0.8, duration: 1.1, ease: "power2.out" }, 0.25);
+
+      // B · las cortinas suben y entra la luz del atardecer.
+      tl.fromTo("#s3-b-cam", { x: -60, scale: 1.0 }, { x: -230, scale: 1.0, duration: 1.8, ease: "power1.out" }, 1.8);
+      tl.fromTo("#s3-b-lit", { "--p": "-20%" }, { "--p": "100%", duration: 1.25, ease: "power2.inOut" }, 1.9);
+      hud("#s3-b-hud", 1.86);
+      count("s3-b-n", 0, 100, 1.9, 1.25);
+      tl.fromTo("#s3-b-bar", { scaleX: 0 }, { scaleX: 1, duration: 1.25, ease: "power2.inOut" }, 1.9);
+
+      // C · clima.
+      tl.fromTo("#s3-c-cam", { x: -640, y: -40, scale: 1.1 }, { x: -560, y: 0, scale: 1.0, duration: 1.2, ease: "power2.out" }, 3.6);
+      hud("#s3-c-hud", 3.66);
+      count("s3-c-n", 26, 22, 3.75, 0.8);
+      tl.fromTo("#s3-c-bar", { scaleX: 0.9 }, { scaleX: 0.55, duration: 0.8, ease: "power2.out" }, 3.75);
+
+      // Texto: se queda quieto mientras cambian los mundos detrás.
+      tl.fromTo(
+        "#s3-text .ah-hl .w",
+        { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out", stagger: 0.12 },
+        0.3,
+      );
+      tl.fromTo(
+        "#s3-lede .w",
+        { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out", stagger: 0.08 },
+        1.85,
+      );
+
+      // Corte con caída a negro.
+      tl.fromTo("#s3-dip", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.in" }, 4.6);
+
+      window.__timelines["s3"] = tl;
+    })();
+  </script>
+</template>

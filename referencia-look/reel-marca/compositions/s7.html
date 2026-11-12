@@ -1,0 +1,199 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s7-aura {
+      position: absolute;
+      left: -110px;
+      top: 60px;
+      width: 1300px;
+      height: 1300px;
+      background: radial-gradient(circle at 50% 50%, rgba(198, 172, 143, 0.3) 0%, rgba(198, 172, 143, 0.1) 30%, rgba(198, 172, 143, 0) 62%);
+    }
+    #s7-halo {
+      position: absolute;
+      left: 240px;
+      top: 410px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(198, 172, 143, 0.5);
+    }
+    #s7-line {
+      position: absolute;
+      left: 240px;
+      top: 838px;
+      width: 600px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(198, 172, 143, 0), #c6ac8f 50%, rgba(198, 172, 143, 0));
+    }
+    #s7-logo {
+      position: absolute;
+      left: 360px;
+      top: 500px;
+      width: 360px;
+      height: 307px;
+    }
+    #s7-logo-clip {
+      position: absolute;
+      inset: 0;
+    }
+    #s7-logo img {
+      position: absolute;
+      inset: 0;
+      width: 360px;
+      height: 307px;
+    }
+    #s7-sheen {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      -webkit-mask-image: url("assets/img/logo.png");
+      mask-image: url("assets/img/logo.png");
+      -webkit-mask-size: 360px 307px;
+      mask-size: 360px 307px;
+    }
+    #s7-sheen i {
+      position: absolute;
+      left: 0;
+      top: -40px;
+      width: 150px;
+      height: 400px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0));
+    }
+    #s7-brand {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 884px;
+      text-align: center;
+      font-family: "Manrope", sans-serif;
+      font-weight: 300;
+      font-size: 92px;
+      line-height: 1;
+      letter-spacing: 0.3em;
+      padding-left: 0.3em;
+      color: #fff;
+      white-space: nowrap;
+    }
+    #s7-brand span {
+      display: inline-block;
+      white-space: pre;
+    }
+    #s7-sub {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 1018px;
+      text-align: center;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: 0.24em;
+      padding-left: 0.24em;
+      text-transform: uppercase;
+      color: #c6ac8f;
+      white-space: nowrap;
+    }
+    #s7-sub .w,
+    #s7-close .w {
+      display: inline-block;
+      white-space: pre;
+    }
+    #s7-close {
+      position: absolute;
+      left: 90px;
+      width: 900px;
+      top: 1136px;
+      text-align: center;
+      font-family: "Manrope", sans-serif;
+      font-weight: 200;
+      font-size: 58px;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+      color: rgba(255, 255, 255, 0.94);
+    }
+  </style>
+
+  <div id="root" data-composition-id="s7" data-width="1080" data-height="1920">
+    <div id="s7-aura" data-layout-ignore></div>
+    <div id="s7-halo" data-layout-ignore></div>
+    <div id="s7-line" data-layout-ignore></div>
+
+    <div id="s7-logo">
+      <div id="s7-logo-clip">
+        <img src="assets/img/logo.png" alt="Aura Hogar" />
+        <div id="s7-sheen" data-layout-ignore><i id="s7-sheen-bar"></i></div>
+      </div>
+    </div>
+
+    <div id="s7-brand">
+      <span>A</span><span>U</span><span>R</span><span>A</span><span> </span><span>H</span><span>O</span><span>G</span><span>A</span><span>R</span>
+    </div>
+    <div id="s7-sub">
+      <span class="w">Diseñamos </span><span class="w">hogares </span><span class="w">inteligentes</span>
+    </div>
+    <div id="s7-close">
+      <span class="w">Tecnología </span><span class="w">que </span><span class="w">transforma</span><br />
+      <span class="w">tu </span><span class="w">manera </span><span class="w">de </span><span class="w ah-acc">vivir.</span>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      // Negro. Una línea de luz se abre desde el centro.
+      tl.fromTo("#s7-line", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 1.0, ease: "expo.out" }, 0.25);
+
+      // El isotipo se eleva desde la línea, sobre el golpe de 36.0 s.
+      tl.fromTo(
+        "#s7-logo-clip",
+        { clipPath: "inset(100% 0% 0% 0%)", y: 46 },
+        { clipPath: "inset(0% 0% 0% 0%)", y: 0, duration: 1.0, ease: "power4.out" },
+        1.08,
+      );
+      tl.fromTo("#s7-aura", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 2.2, ease: "power2.out" }, 1.1);
+      tl.fromTo("#s7-halo", { opacity: 0, scale: 0.55 }, { opacity: 0.9, scale: 1, duration: 1.6, ease: "expo.out" }, 1.15);
+      tl.fromTo("#s7-halo", { opacity: 0.9 }, { opacity: 0, scale: 1.5, duration: 2.4, ease: "power1.out", immediateRender: false }, 2.75);
+
+      // Destello que recorre el metal.
+      tl.fromTo("#s7-sheen-bar", { x: -220, skewX: -18 }, { x: 440, skewX: -18, duration: 1.1, ease: "power2.inOut" }, 2.0);
+
+      // Marca.
+      tl.fromTo(
+        "#s7-brand span",
+        { opacity: 0, filter: "blur(12px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", stagger: 0.07 },
+        1.9,
+      );
+      // Secundario (38.4 s) y cierre (39.6 s), con las campanas.
+      tl.fromTo(
+        "#s7-sub .w",
+        { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out", stagger: 0.12 },
+        3.55,
+      );
+      tl.fromTo(
+        "#s7-close .w",
+        { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out", stagger: 0.09 },
+        4.75,
+      );
+      // Segundo destello, muy leve, para que el cierre no quede congelado.
+      tl.fromTo("#s7-sheen-bar", { x: -220 }, { x: 440, duration: 1.4, ease: "power2.inOut", immediateRender: false }, 6.3);
+      tl.fromTo("#s7-aura", { scale: 1 }, { scale: 1.12, duration: 5.0, ease: "sine.inOut", immediateRender: false }, 3.4);
+
+      window.__timelines["s7"] = tl;
+    })();
+  </script>
+</template>

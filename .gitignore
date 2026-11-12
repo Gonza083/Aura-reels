@@ -27,3 +27,8 @@ desktop.ini
 
 # Rutas locales de cada PC
 config.json
+
+# Hyperframes
+.hyperframes/
+renders/
+referencia-look/**/assets/music.wav

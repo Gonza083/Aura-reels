@@ -1,0 +1,143 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s1-wrap {
+      position: absolute;
+      inset: 0;
+    }
+    #s1-cam {
+      position: absolute;
+      left: -160px;
+      top: 232px;
+      width: 1400px;
+      height: 975px;
+    }
+    #s1-cam img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1400px;
+      height: 975px;
+    }
+    #s1-lit {
+      --r: 0px;
+      -webkit-mask-image: radial-gradient(ellipse 130% 100% at 52% 60%, #000 calc(var(--r) * 0.3), transparent var(--r));
+      mask-image: radial-gradient(ellipse 130% 100% at 52% 60%, #000 calc(var(--r) * 0.3), transparent var(--r));
+    }
+    #s1-shade {
+      position: absolute;
+      inset: -2px;
+      background:
+        linear-gradient(to bottom, #0a0908 0%, rgba(10, 9, 8, 0) 30%, rgba(10, 9, 8, 0) 62%, #0a0908 94%),
+        linear-gradient(to right, #0a0908 6%, rgba(10, 9, 8, 0) 26%, rgba(10, 9, 8, 0) 74%, #0a0908 94%);
+    }
+    #s1-brand {
+      position: absolute;
+      left: 0;
+      width: 1080px;
+      top: 1010px;
+      text-align: center;
+      font-family: "Manrope", sans-serif;
+      font-weight: 300;
+      font-size: 86px;
+      line-height: 1;
+      letter-spacing: 0.3em;
+      padding-left: 0.3em;
+      color: #fff;
+      white-space: nowrap;
+    }
+    #s1-brand span {
+      display: inline-block;
+      white-space: pre;
+    }
+    #s1-rule {
+      position: absolute;
+      left: 440px;
+      top: 1138px;
+      width: 200px;
+      height: 1px;
+      background: #c6ac8f;
+    }
+    #s1-tag {
+      position: absolute;
+      left: 90px;
+      width: 900px;
+      top: 1178px;
+      text-align: center;
+      font-family: "Manrope", sans-serif;
+      font-weight: 200;
+      font-size: 52px;
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+      color: rgba(255, 255, 255, 0.92);
+    }
+    #s1-tag .w {
+      display: inline-block;
+      white-space: pre;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s1" data-width="1080" data-height="1920">
+    <div id="s1-wrap">
+      <div id="s1-cam" data-layout-allow-overflow data-layout-ignore>
+        <img id="s1-dark" src="assets/img/hero_dark.jpg" alt="" />
+        <img id="s1-lit" src="assets/img/hero_lit.jpg" alt="" />
+        <div id="s1-shade"></div>
+      </div>
+
+      <div id="s1-brand">
+        <span>A</span><span>U</span><span>R</span><span>A</span><span> </span><span>H</span><span>O</span><span>G</span><span>A</span><span>R</span>
+      </div>
+      <div id="s1-rule"></div>
+      <div id="s1-tag">
+        <span class="w">La </span><span class="w">tecnología </span><span class="w">transforma</span><br />
+        <span class="w">la </span><span class="w">forma </span><span class="w">de </span><span class="w ah-acc">habitar.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      // Cámara: acercamiento lento y continuo a la arquitectura.
+      tl.fromTo("#s1-cam", { scale: 0.86, y: 10 }, { scale: 1.06, y: -14, duration: 7.2, ease: "sine.inOut" }, 0);
+
+      // Luz tenue: aparece la silueta.
+      tl.fromTo("#s1-dark", { opacity: 0 }, { opacity: 1, duration: 1.7, ease: "power2.out" }, 0.25);
+      // La casa se enciende desde el centro.
+      tl.fromTo("#s1-lit", { "--r": "0px", opacity: 0 }, { "--r": "1500px", opacity: 1, duration: 2.3, ease: "power2.out" }, 2.3);
+
+      // Marca, letra por letra, sobre el golpe de 2.4 s.
+      tl.fromTo(
+        "#s1-brand span",
+        { opacity: 0, filter: "blur(12px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out", stagger: 0.075 },
+        2.38,
+      );
+      tl.fromTo("#s1-rule", { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 0.9, duration: 0.9, ease: "expo.out" }, 3.3);
+
+      // Frase.
+      tl.fromTo(
+        "#s1-tag .w",
+        { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out", stagger: 0.09 },
+        4.15,
+      );
+
+      // Salida a negro.
+      tl.fromTo("#s1-wrap", { opacity: 1 }, { opacity: 0, duration: 0.38, ease: "power2.in", immediateRender: false }, 6.8);
+
+      window.__timelines["s1"] = tl;
+    })();
+  </script>
+</template>

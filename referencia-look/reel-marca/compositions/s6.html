@@ -1,0 +1,187 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s6-wrap {
+      position: absolute;
+      inset: 0;
+    }
+    .s6-shot {
+      position: absolute;
+      inset: 0;
+    }
+    .s6-shot .ah-cam,
+    .s6-shot .ah-cam img {
+      width: 1995px;
+      height: 1330px;
+    }
+    #s6-1 .ah-cam,
+    #s6-1 .ah-cam img {
+      width: 2363px;
+      height: 1330px;
+    }
+    .s6-word {
+      position: absolute;
+      left: 90px;
+      top: 1070px;
+      font-family: "Manrope", sans-serif;
+      font-weight: 200;
+      font-size: 168px;
+      line-height: 1;
+      letter-spacing: -0.045em;
+      color: #c6ac8f;
+      white-space: nowrap;
+    }
+    .s6-idx {
+      position: absolute;
+      left: 96px;
+      top: 1010px;
+    }
+    #s6-chip {
+      position: absolute;
+      left: 96px;
+      top: 972px;
+      z-index: 5;
+    }
+    #s6-chip i {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: 18px;
+      border-radius: 50%;
+      background: #c6ac8f;
+      vertical-align: 3px;
+    }
+    #s6-flash {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 38%, #fff 0%, #eae0d5 30%, #c6ac8f 75%);
+      z-index: 9;
+    }
+    #s6-text {
+      top: 1050px;
+      z-index: 5;
+    }
+    #s6-text .ah-hl {
+      font-size: 104px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s6" data-width="1080" data-height="1920">
+    <div id="s6-wrap">
+      <div id="s6-1" class="clip s6-shot" data-start="0" data-duration="0.6" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-1-cam" class="ah-cam" data-layout-ignore><img src="assets/img/home_lit.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono s6-idx">01 / 06</div>
+        <div class="s6-word">Luz.</div>
+      </div>
+      <div id="s6-2" class="clip s6-shot" data-start="0.6" data-duration="0.6" data-track-index="2">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-2-cam" class="ah-cam" data-layout-ignore><img src="assets/img/clim.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono s6-idx">02 / 06</div>
+        <div class="s6-word">Clima.</div>
+      </div>
+      <div id="s6-3" class="clip s6-shot" data-start="1.2" data-duration="0.6" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-3-cam" class="ah-cam" data-layout-ignore><img src="assets/img/audio.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono s6-idx">03 / 06</div>
+        <div class="s6-word">Audio.</div>
+      </div>
+      <div id="s6-4" class="clip s6-shot" data-start="1.8" data-duration="0.6" data-track-index="2">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-4-cam" class="ah-cam" data-layout-ignore><img src="assets/img/pers_lit.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono s6-idx">04 / 06</div>
+        <div class="s6-word">Cortinas.</div>
+      </div>
+      <div id="s6-5" class="clip s6-shot" data-start="2.4" data-duration="0.6" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-5-cam" class="ah-cam" data-layout-ignore><img src="assets/img/voz.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono s6-idx">05 / 06</div>
+        <div class="s6-word">Voz.</div>
+      </div>
+      <div id="s6-6" class="clip s6-shot" data-start="3.0" data-duration="0.6" data-track-index="2">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-6-cam" class="ah-cam" data-layout-ignore><img src="assets/img/seg.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono s6-idx">06 / 06</div>
+        <div class="s6-word">Seguridad.</div>
+      </div>
+
+      <!-- plano final: todo funcionando -->
+      <div id="s6-7" class="clip s6-shot" data-start="3.6" data-duration="4.8" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s6-7-cam" class="ah-cam" data-layout-ignore><img src="assets/img/ilum.jpg" alt="" /></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div class="ah-mono" id="s6-chip"><i></i>Escena activa · Noche</div>
+        <div class="ah-text" id="s6-text">
+          <div class="ah-hl">
+            <span class="w">Un </span><span class="w">hogar </span><span class="w">que </span><span class="w">se</span><br />
+            <span class="w">adapta </span><span class="w">a </span><span class="w ah-acc">vos.</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="s6-flash" data-layout-ignore></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s6-flash", { opacity: 0.92 }, { opacity: 0, duration: 0.55, ease: "power2.out" }, 0);
+
+      // Montaje: un plano por pulso, siempre avanzando hacia adentro y hacia la derecha.
+      const shots = [
+        ["#s6-1-cam", -620, -700, 1.0, 1.08, 0],
+        ["#s6-2-cam", -10, -70, 1.0, 1.08, 0.6],
+        ["#s6-3-cam", 0, -50, 1.14, 1.22, 1.2],
+        ["#s6-4-cam", -40, -110, 1.0, 1.08, 1.8],
+        ["#s6-5-cam", 0, -20, 1.1, 1.18, 2.4],
+        ["#s6-6-cam", -180, -260, 1.0, 1.08, 3.0],
+      ];
+      shots.forEach(([sel, x0, x1, s0, s1, t]) => {
+        tl.fromTo(sel, { x: x0, scale: s0 }, { x: x1, scale: s1, duration: 0.6, ease: "none" }, t);
+      });
+      [1, 2, 3, 4, 5, 6].forEach((i, k) => {
+        tl.fromTo("#s6-" + i + " .s6-word", { x: 46 }, { x: 0, duration: 0.6, ease: "expo.out" }, k * 0.6);
+      });
+
+      // Plano final: la cámara retrocede despacio y deja ver el ambiente completo.
+      gsap.set("#s6-7-cam", { transformOrigin: "22% 42%" });
+      tl.fromTo("#s6-7-cam", { x: -40, scale: 1.2 }, { x: 0, scale: 1.0, duration: 4.8, ease: "sine.out" }, 3.6);
+      tl.fromTo("#s6-chip", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 5.4);
+      tl.fromTo(
+        "#s6-text .w",
+        { opacity: 0, filter: "blur(12px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out", stagger: 0.085 },
+        3.72,
+      );
+
+      // A negro para el cierre de marca.
+      tl.fromTo("#s6-wrap", { opacity: 1 }, { opacity: 0, duration: 0.34, ease: "power2.in", immediateRender: false }, 8.04);
+
+      window.__timelines["s6"] = tl;
+    })();
+  </script>
+</template>

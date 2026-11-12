@@ -1,0 +1,172 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s2-wrap {
+      position: absolute;
+      inset: 0;
+    }
+    #s2-cam {
+      width: 2363px;
+      height: 1330px;
+    }
+    #s2-cam img {
+      width: 2363px;
+      height: 1330px;
+    }
+    #s2-lit {
+      --r1: 0px;
+      --r2: 0px;
+      --r3: 0px;
+      -webkit-mask-image:
+        radial-gradient(circle at 1229px 120px, #000 calc(var(--r1) * 0.35), transparent var(--r1)),
+        radial-gradient(circle at 1900px 330px, #000 calc(var(--r2) * 0.35), transparent var(--r2)),
+        radial-gradient(circle at 900px 660px, #000 calc(var(--r3) * 0.35), transparent var(--r3));
+      mask-image:
+        radial-gradient(circle at 1229px 120px, #000 calc(var(--r1) * 0.35), transparent var(--r1)),
+        radial-gradient(circle at 1900px 330px, #000 calc(var(--r2) * 0.35), transparent var(--r2)),
+        radial-gradient(circle at 900px 660px, #000 calc(var(--r3) * 0.35), transparent var(--r3));
+    }
+    #s2-net {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2363px;
+      height: 1330px;
+      overflow: visible;
+    }
+    #s2-net path {
+      fill: none;
+      stroke: #c6ac8f;
+      stroke-width: 2;
+      stroke-dasharray: 1;
+    }
+    #s2-net .pulse {
+      stroke: #fff;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 0.09 1;
+    }
+    .s2-node {
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+    .s2-node b {
+      position: absolute;
+      left: -8px;
+      top: -8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #c6ac8f;
+      box-shadow: 0 0 0 9px rgba(198, 172, 143, 0.18);
+    }
+    .s2-node .ah-mono {
+      position: absolute;
+      top: -14px;
+      left: 36px;
+      color: #fff;
+    }
+    .s2-node.left .ah-mono {
+      left: auto;
+      right: 36px;
+    }
+    .s2-node .ah-mono em {
+      font-style: normal;
+      color: #c6ac8f;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s2" data-width="1080" data-height="1920">
+    <div id="s2-wrap">
+      <div class="ah-stage" data-layout-allow-overflow>
+        <div id="s2-cam" class="ah-cam" data-layout-ignore>
+          <img src="assets/img/home_dark.jpg" alt="" />
+          <img id="s2-lit" src="assets/img/home_lit.jpg" alt="" />
+
+          <svg id="s2-net" viewBox="0 0 2363 1330">
+            <path id="s2-p1" pathLength="1" d="M1310 200 V430 H1010" />
+            <path id="s2-p2" pathLength="1" d="M1310 430 H1600 V640" />
+            <path id="s2-q1" class="pulse" pathLength="1" d="M1310 200 V430 H1010" />
+            <path id="s2-q2" class="pulse" pathLength="1" d="M1310 430 H1600 V640" />
+          </svg>
+          <div class="s2-node" id="s2-n1" style="left: 1310px; top: 200px">
+            <b></b><span class="ah-mono">Luces <em>80%</em></span>
+          </div>
+          <div class="s2-node" id="s2-n2" style="left: 1010px; top: 430px">
+            <b></b><span class="ah-mono">Clima <em>23°</em></span>
+          </div>
+          <div class="s2-node left" id="s2-n3" style="left: 1600px; top: 640px">
+            <b></b><span class="ah-mono">Audio <em>on</em></span>
+          </div>
+        </div>
+        <div class="ah-fade"></div>
+      </div>
+
+      <div class="ah-text" id="s2-text">
+        <div class="ah-hl">
+          <span class="w">Todo </span><span class="w">conectado.</span><br />
+          <span class="w">Todo </span><span class="w">bajo </span><span class="w ah-acc">control.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#s2-wrap", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+
+      // Travelling lateral por el living; al final acelera hacia el corte.
+      tl.fromTo("#s2-cam", { x: -500 }, { x: -735, duration: 4.5, ease: "power1.out" }, 0);
+      tl.fromTo("#s2-cam", { x: -735 }, { x: -1270, duration: 0.3, ease: "power3.in", immediateRender: false }, 4.5);
+
+      // Las luces se encienden por zonas, sobre los pulsos de la música.
+      const on = (v, t, r, d) =>
+        tl.fromTo("#s2-lit", { [v]: "0px" }, { [v]: r + "px", duration: d, ease: "power2.out" }, t);
+      on("--r1", 0.5, 1050, 0.75);
+      on("--r2", 1.1, 1050, 0.75);
+      on("--r3", 1.7, 1100, 0.75);
+      ["--r1", "--r2", "--r3"].forEach((v, i) =>
+        tl.fromTo("#s2-lit", { [v]: [1050, 1050, 1100][i] + "px" }, { [v]: "3000px", duration: 1.1, ease: "power2.inOut", immediateRender: false }, 2.3),
+      );
+
+      // Dispositivos conectados: nodos y trazas ortogonales.
+      const node = (sel, t) => {
+        tl.fromTo(sel + " b", { scale: 0 }, { scale: 1, duration: 0.5, ease: "back.out(1.6)" }, t);
+        tl.fromTo(sel + " .ah-mono", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power3.out" }, t + 0.08);
+      };
+      node("#s2-n1", 0.62);
+      tl.fromTo("#s2-p1", { strokeDashoffset: 1, opacity: 0.85 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 0.8);
+      node("#s2-n2", 1.3);
+      tl.fromTo("#s2-p2", { strokeDashoffset: 1, opacity: 0.85 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 1.35);
+      node("#s2-n3", 1.88);
+      // Pulsos de datos que recorren las trazas.
+      tl.fromTo("#s2-q1", { strokeDashoffset: 0.09, opacity: 0 }, { strokeDashoffset: -1, opacity: 1, duration: 0.9, ease: "power1.inOut" }, 2.4);
+      tl.fromTo("#s2-q2", { strokeDashoffset: 0.09, opacity: 0 }, { strokeDashoffset: -1, opacity: 1, duration: 0.9, ease: "power1.inOut" }, 2.7);
+      tl.fromTo("#s2-q1", { strokeDashoffset: 0.09 }, { strokeDashoffset: -1, duration: 0.9, ease: "power1.inOut", immediateRender: false }, 3.5);
+
+      // Titular.
+      tl.fromTo(
+        "#s2-text .w",
+        { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out", stagger: 0.1 },
+        1.95,
+      );
+      tl.fromTo("#s2-text", { opacity: 1 }, { opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 4.5);
+      tl.fromTo("#s2-net, .s2-node", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power2.in", immediateRender: false }, 4.45);
+
+      window.__timelines["s2"] = tl;
+    })();
+  </script>
+</template>

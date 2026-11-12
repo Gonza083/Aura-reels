@@ -1,0 +1,217 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("assets/fonts/Manrope.ttf") format("truetype");
+      font-weight: 200 800;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #s4-wrap {
+      position: absolute;
+      inset: 0;
+    }
+    .s4-shot {
+      position: absolute;
+      inset: 0;
+    }
+    #s4-a-cam,
+    #s4-a-cam img {
+      width: 1995px;
+      height: 1330px;
+    }
+    #s4-b-cam {
+      position: absolute;
+      left: 151px;
+      top: 318px;
+      width: 778px;
+      height: 1037px;
+      -webkit-mask-image: radial-gradient(ellipse 50% 52% at 50% 50%, #000 62%, transparent 100%);
+      mask-image: radial-gradient(ellipse 50% 52% at 50% 50%, #000 62%, transparent 100%);
+    }
+    #s4-b-cam img {
+      position: absolute;
+      inset: 0;
+      width: 778px;
+      height: 1037px;
+    }
+    .s4-c {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 64px;
+      height: 64px;
+      border: 0 solid #c6ac8f;
+    }
+    #s4-c1 {
+      border-left-width: 3px;
+      border-top-width: 3px;
+    }
+    #s4-c2 {
+      border-right-width: 3px;
+      border-top-width: 3px;
+    }
+    #s4-c3 {
+      border-left-width: 3px;
+      border-bottom-width: 3px;
+    }
+    #s4-c4 {
+      border-right-width: 3px;
+      border-bottom-width: 3px;
+    }
+    #s4-rec {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 18px;
+      border-radius: 50%;
+      background: #c6ac8f;
+      vertical-align: 3px;
+    }
+    #s4-ring {
+      position: absolute;
+      left: 631px;
+      top: 894px;
+      width: 190px;
+      height: 190px;
+      overflow: visible;
+    }
+    #s4-ring circle {
+      fill: none;
+      stroke: #c6ac8f;
+      stroke-width: 3;
+      stroke-dasharray: 1;
+      transform-origin: 95px 95px;
+      transform: rotate(-90deg);
+    }
+    #s4-burst {
+      position: absolute;
+      left: 676px;
+      top: 939px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #c6ac8f;
+      z-index: 8;
+    }
+    #s4-out {
+      position: absolute;
+      inset: 0;
+      background: #0a0908;
+      z-index: 7;
+    }
+    #s4-text {
+      z-index: 5;
+    }
+    #s4-enter {
+      position: absolute;
+      inset: 0;
+      background: #0a0908;
+      z-index: 9;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s4" data-width="1080" data-height="1920">
+    <div id="s4-wrap">
+      <!-- A · Cámara en el acceso -->
+      <div id="s4-a" class="clip s4-shot" data-start="0" data-duration="2.4" data-track-index="1">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s4-a-cam" class="ah-cam" data-layout-ignore>
+            <img src="assets/img/seg.jpg" alt="" />
+          </div>
+          <div class="ah-topfade"></div>
+          <div class="ah-fade"></div>
+        </div>
+        <div id="s4-c1" class="s4-c" data-layout-ignore></div>
+        <div id="s4-c2" class="s4-c" data-layout-ignore></div>
+        <div id="s4-c3" class="s4-c" data-layout-ignore></div>
+        <div id="s4-c4" class="s4-c" data-layout-ignore></div>
+        <div class="ah-hud" id="s4-a-hud">
+          <div class="ah-mono"><i id="s4-rec"></i>Cámara 01 · Entrada</div>
+          <div class="ah-val" id="s4-a-val">Perímetro seguro</div>
+        </div>
+      </div>
+
+      <!-- B · Cerradura digital -->
+      <div id="s4-b" class="clip s4-shot" data-start="2.4" data-duration="2.4" data-track-index="2">
+        <div class="ah-stage" data-layout-allow-overflow>
+          <div id="s4-b-cam" data-layout-ignore>
+            <img src="assets/img/lock.jpg" alt="" />
+          </div>
+          <div class="ah-topfade"></div>
+          <div class="ah-fade"></div>
+        </div>
+        <svg id="s4-ring" viewBox="0 0 190 190" data-layout-ignore>
+          <circle id="s4-ring-c" cx="95" cy="95" r="62" pathLength="1" />
+        </svg>
+        <div class="ah-hud" id="s4-b-hud">
+          <div class="ah-mono">Cerradura digital</div>
+          <div class="ah-val" id="s4-b-val">Acceso autorizado</div>
+        </div>
+      </div>
+
+      <div id="s4-out" data-layout-ignore></div>
+      <div id="s4-burst" data-layout-ignore></div>
+
+      <div class="ah-text" id="s4-text">
+        <div class="ah-hl">
+          <span class="w">Seguridad</span><br /><span class="w ah-acc">inteligente.</span>
+        </div>
+        <div class="ah-lede" id="s4-lede">
+          <span class="w">Tranquilidad </span><span class="w">en </span><span class="w">cada </span><span class="w">momento.</span>
+        </div>
+      </div>
+
+      <div id="s4-enter" data-layout-ignore></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const blurIn = (sel, t, d = 0.4, st = 0) =>
+        tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power3.out", stagger: st }, t);
+
+      tl.fromTo("#s4-enter", { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.out" }, 0);
+
+      // A · la cámara encuadra la entrada: el marco se cierra sobre el acceso.
+      tl.fromTo("#s4-a-cam", { x: -290, scale: 1.08 }, { x: -215, scale: 1.0, duration: 2.4, ease: "power2.out" }, 0);
+      const corners = [
+        ["#s4-c1", 96, 420, 560, 420],
+        ["#s4-c2", 920, 420, 840, 420],
+        ["#s4-c3", 96, 960, 560, 800],
+        ["#s4-c4", 920, 960, 840, 800],
+      ];
+      corners.forEach(([sel, x0, y0, x1, y1]) => {
+        tl.fromTo(sel, { x: x0, y: y0, opacity: 0 }, { x: x0, y: y0, opacity: 1, duration: 0.25, ease: "power2.out" }, 0.25);
+        tl.fromTo(sel, { x: x0, y: y0 }, { x: x1, y: y1, duration: 0.75, ease: "power3.inOut", immediateRender: false }, 0.6);
+      });
+      blurIn("#s4-a-hud .ah-mono", 0.3);
+      tl.fromTo("#s4-rec", { opacity: 1 }, { opacity: 0.15, duration: 1.8, ease: "steps(3)" }, 0.6);
+      blurIn("#s4-a-val", 1.3);
+
+      // B · cerradura: el anillo se completa sobre el lector y autoriza.
+      gsap.set("#s4-b-cam", { transformOrigin: "74% 63%" });
+      tl.fromTo("#s4-b-cam", { scale: 1.14, y: 0 }, { scale: 1.0, y: 0, duration: 2.0, ease: "power2.out" }, 2.4);
+      blurIn("#s4-b-hud .ah-mono", 2.5);
+      tl.fromTo("#s4-ring", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, 2.75);
+      tl.fromTo("#s4-ring-c", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 2.8);
+      blurIn("#s4-b-val", 3.45);
+
+      // Texto fijo sobre los dos planos.
+      blurIn("#s4-text .ah-hl .w", 0.4, 0.5, 0.12);
+      blurIn("#s4-lede .w", 1.2, 0.45, 0.08);
+
+      // Salida: el anillo se abre y se convierte en el próximo mundo.
+      tl.fromTo("#s4-burst", { opacity: 0 }, { opacity: 1, duration: 0.05 }, 4.3);
+      tl.fromTo("#s4-burst", { scale: 1 }, { scale: 34, duration: 0.5, ease: "power3.in", immediateRender: false }, 4.3);
+      tl.fromTo("#s4-out", { opacity: 0 }, { opacity: 1, duration: 0.36, ease: "power2.in" }, 4.4);
+      tl.fromTo("#s4-text, #s4-b-hud", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.in", immediateRender: false }, 4.4);
+
+      window.__timelines["s4"] = tl;
+    })();
+  </script>
+</template>

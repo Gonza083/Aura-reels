@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/Manrope.ttf") format("truetype");
+        font-weight: 200 800;
+        font-style: normal;
+      }
+      :root {
+        --black: #0a0908;
+        --tan: #c6ac8f;
+        --cream: #eae0d5;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0a0908;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+        background: #0a0908;
+      }
+      #grain {
+        position: absolute;
+        inset: 0;
+        z-index: 50;
+        background-image: url("assets/img/grain.png");
+        background-size: 512px 512px;
+        opacity: 0.055;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        z-index: 49;
+        background: radial-gradient(ellipse 85% 70% at 50% 42%, rgba(10, 9, 8, 0) 55%, rgba(10, 9, 8, 0.55) 100%);
+        pointer-events: none;
+      }
+
+      /* ---------- sistema tipográfico compartido por las escenas ---------- */
+      .ah-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1400px;
+        overflow: hidden;
+      }
+      .ah-cam {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: 0 0;
+      }
+      .ah-cam img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+      }
+      .ah-fade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 600px;
+        background: linear-gradient(
+          to bottom,
+          rgba(10, 9, 8, 0) 0%,
+          rgba(10, 9, 8, 0.55) 34%,
+          rgba(10, 9, 8, 0.9) 62%,
+          #0a0908 86%
+        );
+      }
+      .ah-topfade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 520px;
+        background: linear-gradient(to bottom, rgba(10, 9, 8, 0.82) 0%, rgba(10, 9, 8, 0.5) 45%, rgba(10, 9, 8, 0) 100%);
+      }
+      .ah-text {
+        position: absolute;
+        left: 96px;
+        width: 900px;
+        top: 1036px;
+      }
+      .ah-hl {
+        font-family: "Manrope", sans-serif;
+        font-weight: 200;
+        font-size: 94px;
+        line-height: 1.05;
+        letter-spacing: -0.035em;
+        color: #fff;
+      }
+      .ah-hl .w,
+      .ah-lede .w {
+        display: inline-block;
+        white-space: pre;
+      }
+      .ah-acc {
+        color: #c6ac8f;
+      }
+      .ah-lede {
+        margin-top: 26px;
+        font-family: "Inter", sans-serif;
+        font-weight: 300;
+        font-size: 44px;
+        line-height: 1.28;
+        letter-spacing: -0.012em;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .ah-hud {
+        position: absolute;
+        left: 96px;
+        top: 206px;
+        width: 800px;
+      }
+      .ah-mono {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 1;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(198, 172, 143, 0.92);
+        white-space: nowrap;
+      }
+      .ah-num {
+        margin-top: 18px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 200;
+        font-size: 132px;
+        line-height: 1;
+        letter-spacing: -0.045em;
+        color: #fff;
+        white-space: nowrap;
+      }
+      .ah-val {
+        margin-top: 20px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 300;
+        font-size: 50px;
+        line-height: 1.1;
+        letter-spacing: -0.025em;
+        color: #fff;
+        white-space: nowrap;
+      }
+      .ah-track {
+        position: relative;
+        margin-top: 22px;
+        width: 330px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .ah-track i {
+        position: absolute;
+        inset: 0;
+        background: #c6ac8f;
+        transform-origin: 0 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="43.2"
+      data-fps="30"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="bg"></div>
+
+      <div id="s1" data-composition-id="s1" data-composition-src="compositions/s1.html" data-start="0" data-duration="7.2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 1"></div>
+      <div id="s2" data-composition-id="s2" data-composition-src="compositions/s2.html" data-start="7.2" data-duration="4.8" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 2"></div>
+      <div id="s3" data-composition-id="s3" data-composition-src="compositions/s3.html" data-start="12" data-duration="4.8" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 3"></div>
+      <div id="s4" data-composition-id="s4" data-composition-src="compositions/s4.html" data-start="16.8" data-duration="4.8" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 4"></div>
+      <div id="s5" data-composition-id="s5" data-composition-src="compositions/s5.html" data-start="21.6" data-duration="4.8" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 5"></div>
+      <div id="s6" data-composition-id="s6" data-composition-src="compositions/s6.html" data-start="26.4" data-duration="8.4" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 6"></div>
+      <div id="s7" data-composition-id="s7" data-composition-src="compositions/s7.html" data-start="34.8" data-duration="8.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 7"></div>
+
+      <div id="vignette" data-layout-ignore></div>
+      <div id="grain" data-layout-ignore></div>
+
+      <audio id="music" class="clip" data-start="0" data-duration="43.2" data-track-index="5" data-volume="1" src="assets/music.wav"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // Grano de película: la posición es función pura del número de cuadro.
+      const grain = document.getElementById("grain");
+      const g = { p: 0 };
+      tl.fromTo(
+        g,
+        { p: 0 },
+        {
+          p: 1,
+          duration: 43.2,
+          ease: "none",
+          onUpdate: () => {
+            const f = Math.round(g.p * 43.2 * 30);
+            grain.style.backgroundPosition = ((f * 173) % 512) + "px " + ((f * 311) % 512) + "px";
+          },
+        },
+        0,
+      );
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -9,7 +9,7 @@ Videos de obra → reels profesionales con la marca de Aura Hogar.
 4. El reel, la portada y el texto para la publicación aparecen en **Drive → `Reels/salida`**.
 
 ## Estado
-Plan armado el 2026-11-10. Pendiente de ejecución en la PC de escritorio → ver `PLAN.md`.
+Plan armado el 2026-11-10 y actualizado el 2026-11-12 (render con Hyperframes). Pendiente de ejecución en la PC de escritorio → ver `PLAN.md`.
 
 ## Puesta en marcha en otra PC
 1. Instalar **Google Drive para escritorio** (google.com/drive/download) e iniciar sesión.
@@ -20,4 +20,4 @@ git clone https://github.com/Gonza083/Aura-reels.git
 cd Aura-reels
 claude
 ```
-4. Decirle a Claude: *"Leé CLAUDE.md y PLAN.md y arrancá con la Fase 1."*
+4. Decirle a Claude: *"Leé CLAUDE.md y PLAN.md y arrancá con los hitos de esta noche (N1 a N3)."*
