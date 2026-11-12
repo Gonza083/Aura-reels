@@ -256,6 +256,7 @@ Validar con pydantic antes del render. Los tiempos de `subtitulos` y `zooms` son
 | **H5** | Punta a punta + Drive | Video subido a `Drive/Reels/entrada` → reel completo en `Drive/Reels/salida` |
 | **H6** | Plantilla Terminado + música | Segundo formato funcionando; biblioteca de 6–10 pistas con tags |
 | **H7** | Ajuste fino | 3 reels reales procesados, ajustes de estilo anotados en ESTILO.md |
+| **H8** | *(Opcional)* Prueba de voz generada | Gonzalo escuchó las muestras y decidió si sirve o no (§6b) |
 
 > Prioridad: **N3 antes que automatizar todo.**
 
@@ -268,6 +269,29 @@ Validar con pydantic antes del render. Los tiempos de `subtitulos` y `zooms` son
 - Claude elige la pista según el tono del video. Ducking automático bajo la voz (sidechaincompress en ffmpeg o la curva de volumen de Hyperframes).
 - Alternativa: no poner música y agregar audio en tendencia desde la app de Instagram al publicar (decidir con Gonzalo).
 - La música del reel de referencia está generada por código (`referencia-look/reel-marca/tools/make_music.py`). Gonzalo todavía no opinó sobre cómo suena; no tomarla como estándar.
+
+---
+
+## 6b. Voz generada (herramienta opcional)
+
+> Agregado el 2026-11-12 a pedido de Gonzalo. **No es parte del flujo automático ni de los hitos de esta noche.** Se prueba recién después de aprobar el look (N3).
+
+**Para qué sí:** videos donde Gonzalo no aparece — plantilla "Terminado" (recorrido de una casa) o piezas de marca como el reel de referencia.
+**Para qué no:** reels de obra. Ahí habla Gonzalo a cámara y esa voz real es lo que vende; nunca reemplazarla ni taparla.
+
+**Prueba (hito H8, unos 10 minutos, sin costo):**
+1. Instalar el generador de voz local de Hyperframes. `npx hyperframes doctor` muestra el comando (el 2026-11-12 era `pip install kokoro-onnx soundfile`). Ver `npx hyperframes tts --help`.
+2. Generar la misma frase con cada voz disponible en español, por ejemplo: *"Un hogar que se adapta a vos."* y *"Escribinos antes de cerrar las paredes."*
+3. Dejar las muestras en `trabajo/prueba-voz/` y que **Gonzalo las escuche y decida**. Claude no puede juzgar cómo suena.
+
+**Qué no se sabe (no se probó):** cómo suena en español. Lo esperable es acento neutro o de España, no rioplatense; con textos en "vos" puede sonar raro.
+
+**Según lo que decida Gonzalo:**
+| Resultado | Siguiente paso |
+|---|---|
+| Alguna voz le gusta | Sumar a `plan.json` un campo opcional `voz` (texto por escena) y mezclarla con ducking de la música, solo en la plantilla "Terminado" |
+| El acento no convence | Descartar. La voz la graba Gonzalo con el celular y se sincroniza |
+| Quiere su propia voz generada | Evaluar la clonación de voz de Higgsfield. **Gasta créditos: consultar el costo y pedirle el OK antes de usarla** |
 
 ---
 
@@ -298,5 +322,5 @@ Validar con pydantic antes del render. Los tiempos de `subtitulos` y `zooms` son
 ## 9. Fuera de alcance (por ahora)
 - Publicar automáticamente en Instagram.
 - Generar imágenes o video de obras con IA. Ver regla de autenticidad en ESTILO.md.
-- Voz en off generada. Si hace falta voz, la graba Gonzalo.
+- Voz en off generada dentro del flujo automático. Queda como herramienta opcional a probar (§6b).
 - Edición multicámara o videos largos de YouTube.
